@@ -2,7 +2,7 @@ package api;
 
 import java.io.*;
 
-public class User {
+public class User implements java.io.Serializable {
     private String name;
     private String surname;
     private String username;
