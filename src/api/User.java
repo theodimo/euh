@@ -1,5 +1,7 @@
 package api;
 
+import java.io.*;
+
 public class User {
     private String name;
     private String surname;
@@ -34,5 +36,10 @@ public class User {
 
     public String getType() {
         return this.type;
+    }
+
+    public void printUserData() {
+        System.out.println("Name: " + this.name);
+        System.out.println("Surname: " + this.surname);
     }
 }
