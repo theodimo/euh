@@ -1,10 +1,10 @@
 import api.User;
 
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+
 import java.io.*;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     private static ArrayList<User> users = new ArrayList<>();
@@ -12,13 +12,14 @@ public class Main {
     private static HashMap<String, String> databasePaths = new HashMap<>();
 
     public static void main(String[] args) {
-        //User currentUser = new User("Dimos", "Theocharis", "thanatopios7", 1234, "user");
+        User newUser = new User("Dimos", "Theocharis", "thanatopios7", 1234, "user");
         //constructor funtionality
         databasePaths.put("users", "../database/users.dat");
 
 
-        User newUser = signUp();
-
+        //User newUser = signUp();
+        users.add(newUser);
+        newUser = signIn();
 
     }
 
@@ -28,6 +29,8 @@ public class Main {
         String name, surname, username, type;
         int password, confirmationPassword;
         char submit;
+
+        System.out.println("---- SIGN UP PAGE ----\n");
 
         //give credentials
         System.out.println("Give name: ");
@@ -89,5 +92,44 @@ public class Main {
 
 
 
+    }
+
+    public static User signIn(){
+        Scanner scanner = new Scanner(System.in);
+        String username;
+        int password;
+        boolean credentials_true = false;
+        User validUser = null;
+
+
+        System.out.println("---- SIGN IN PAGE ----\n");
+
+
+        while(!credentials_true) {
+
+            System.out.println("Give username: ");
+            username = scanner.next();
+            System.out.println(username);
+
+            System.out.println("Give password: ");
+            password = scanner.nextInt();
+            System.out.println(password);
+
+            for (User temp : users) {
+
+                if (Objects.equals(temp.getUsername(), username)) {
+                    if(temp.getPassword() == password){
+                        validUser = temp;
+                        credentials_true = true;
+                    }
+                    else
+                        System.out.println("Wrong password, try again:");
+                }
+                else
+                    System.out.println("No such username, try again:");
+            }
+        }
+        System.out.println("Welcome to the app!");
+        return validUser;
     }
 }
