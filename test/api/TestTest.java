@@ -1,5 +1,6 @@
 package api;
 
+/*
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,6 +9,8 @@ import static org.junit.Assert.*;
 /**
  * This test can be deleted
  */
+
+/*
 
 public class TestTest {
 
@@ -20,3 +23,5 @@ public class TestTest {
         assertTrue(true);
     }
 }
+
+*/
