@@ -1,8 +1,5 @@
 import api.User;
 
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-
 import java.io.*;
 import java.util.*;
 
@@ -12,7 +9,7 @@ public class Main {
     private static HashMap<String, String> databasePaths = new HashMap<>();
 
     public static void main(String[] args) {
-        User newUser = new User("Dimos", "Theocharis", "thanatopios7", 1234, "user");
+        User newUser = new User("Dimos", "Theocharis", "thanatopios7", "1234", "user");
         //constructor funtionality
         databasePaths.put("users", "../database/users.dat");
 
@@ -27,7 +24,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         String name, surname, username, type;
-        int password, confirmationPassword;
+        String password;
+        int confirmationPassword;
         char submit;
 
         System.out.println("---- SIGN UP PAGE ----\n");
@@ -43,7 +41,7 @@ public class Main {
         username = scanner.nextLine();
 
         System.out.println("Give password: ");
-        password = scanner.nextInt();
+        password = scanner.nextLine();
 
         System.out.println("Give type: ");
         type = scanner.nextLine();
@@ -118,7 +116,7 @@ public class Main {
             for (User temp : users) {
 
                 if (Objects.equals(temp.getUsername(), username)) {
-                    if(temp.getPassword() == password){
+                    if(Objects.equals(temp.getPassword() , password)){
                         validUser = temp;
                         credentials_true = true;
                     }

@@ -1,15 +1,13 @@
 package api;
 
-import java.io.*;
-
 public class User implements java.io.Serializable {
     private String name;
     private String surname;
     private String username;
-    private int password;
+    private String password;
     private String type;
 
-    public User(String name, String surname, String username, int password, String type) {
+    public User(String name, String surname, String username, String password, String type) {
         this.name = name;
         this.surname = surname;
         this.username = username;
@@ -30,7 +28,7 @@ public class User implements java.io.Serializable {
         return this.username;
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return this.password;
     }
 

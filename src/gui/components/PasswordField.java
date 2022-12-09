@@ -20,17 +20,19 @@ public class PasswordField extends JPasswordField implements FocusListener {
     private final  Color backgroundColor;
     private final Color foregroundColor;
     private final Color defaultMessageColor;
-    private final String defaultMessage = "password";
+    private final String defaultMessage;
 
     public PasswordField(int width, int height,
                          Color backgroundColor, Color foregroundColor,
-                         Color idleBorderColor, Color focusBorderColor)
+                         Color idleBorderColor, Color focusBorderColor,
+                         String defaultMessage)
     {
         this.idleBorderColor = idleBorderColor;
         this.focusBorderColor = focusBorderColor;
         this.backgroundColor = backgroundColor;
         this.foregroundColor = foregroundColor;
         this.defaultMessageColor = idleBorderColor;
+        this.defaultMessage = defaultMessage;
 
         this.setBackground(this.backgroundColor);
         this.setForeground(this.defaultMessageColor);

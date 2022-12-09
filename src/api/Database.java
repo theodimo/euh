@@ -1,12 +1,11 @@
 package api;
 
-import api.User;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 //a class that holds the data of our app while its running
 public class Database {
@@ -53,13 +52,13 @@ public class Database {
      * @return an integer that represents the position of the potential user in the database. If user does not exist
      * return -1
      */
-    public int validateSignInCredentials(String username, int password) {
+    public int validateSignInCredentials(String username, String password) {
         //check if there is any user with the given username
         int foundPosition = -1;
         int pos = this.validateUsername(username);
         if (pos != -1) {
             //if the user exists, validate his password
-            if (this.users.get(pos).getPassword() == password) {
+            if (Objects.equals(this.users.get(pos).getPassword() , password)) {
                 foundPosition = pos;
             }
         }
@@ -75,13 +74,13 @@ public class Database {
      * @param confirmPassword: The confirmation of the password of the possibly new user.
      * @return True if the validation is successfull, false otherwise.
      */
-    public boolean validateSignUpCredentials(String username, int password, int confirmPassword) {
+    public boolean validateSignUpCredentials(String username, String password, String confirmPassword) {
         boolean successfullValidation = false;
         //check if there is already a user with the same username
         int pos = this.validateUsername(username);
         if (pos == -1) {
             //if an account with the given username can be created, check if password matches confirmPassword
-            successfullValidation = password == confirmPassword;
+            successfullValidation = Objects.equals(password, confirmPassword);
         }
         return successfullValidation;
     }
@@ -95,7 +94,7 @@ public class Database {
         return this.users.get(index);
     }
 
-    public void createUser(String name, String surname, String username, int password, String type) {
+    public void createUser(String name, String surname, String username, String password, String type) {
         User newUser = new User(name, surname, username, password, type);
         this.users.add(newUser);
 
