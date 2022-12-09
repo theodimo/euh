@@ -7,6 +7,15 @@ import gui.components.PasswordField;
 import gui.components.TextField;
 import static gui.bootstrap.Colors.*;
 
+/**This is the screen in which a user can Log In in
+ * the application. The class checks if the given
+ * credentials exist in the database and if they are
+ * correct the user proceeds in the next screen of the
+ * program. The user also has the ability to go in the
+ * Sign-Up screen if he doesn't have an account.
+ *
+ * @author tzikaman
+ */
 public class LogInScreen extends SignTemplate {
 
     TextField usernameField = new TextField(250,50,primaryColor,secondaryColor,accentColor,secondaryColor,"username");

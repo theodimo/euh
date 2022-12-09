@@ -8,6 +8,17 @@ import gui.components.TextField;
 import static gui.bootstrap.Colors.*;
 import static gui.bootstrap.Colors.secondaryColor;
 
+/**This is the screen in which a new user can sign up
+ * in the application. The data of the user are used
+ * to create an instance of the User class which is saved
+ * in the database. If the credentials are valid the user
+ * can proceed to the next page of the program. The user
+ * also has the ability to go in the Log-In screen if he
+ * already has an account.
+ *
+ * @author tzikaman
+ */
+
 public class SignUpScreen extends SignTemplate{
 
     TextField nameField = new TextField(250,50,primaryColor,secondaryColor,accentColor,secondaryColor,"name");

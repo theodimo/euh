@@ -9,9 +9,14 @@ import java.awt.*;
 
 import static gui.bootstrap.Colors.*;
 
-//This class is a template that will be used by the ui classes SignUpScreen & SignInScreen
-//It contains code that both these classes have in common
-//It creates a frame 1080x720, centers a panel where the content will be displayed, and applies styles
+/**This class is a template that will be used by the ui classes SignUpScreen & SignInScreen
+ * It contains code that both these classes have in common
+ * It creates a frame 1080x720, centers a panel where the content will be displayed, and applies styles
+ *
+ * @author Dimos Theocharis
+ * @author tzikaman
+ */
+
 
 public abstract class SignTemplate extends JFrame {
 
