@@ -61,7 +61,7 @@ public class TextField extends JTextField implements FocusListener{
         this.setBorder(new RoundedLineBorder(idleBorderColor,1,10,true));
 
         if(Objects.equals(this.getText(), "")){
-            this.setText("username");
+            this.setText(defaultMessage);
             this.setForeground(defaultMessageColor);
         }
     }
