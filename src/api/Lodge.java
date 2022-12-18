@@ -11,21 +11,37 @@ public class Lodge {
     private String city;
     private int zipCode;
     private String description;
+
+    private User owner;
     private HashMap<String,String> Accommodations;
     private ArrayList<String> Reviews;
 
-    // constructor of Lodge
-    public Lodge(String name, String type, String address, String city, int zipCode, String description, HashMap<String,String> Accommodations, ArrayList<String> Reviews){
+    // constructors of Lodge
+    public Lodge(String name, String type, String address, String city, int zipCode, String description) {
+        //the minimal constructor
         this.name = name;
         this.type = type;
         this.address = address;
         this.city = city;
         this.zipCode = zipCode;
         this.description = description;
+        this.owner = null;
+        this.Accommodations = new HashMap<>();
+        this.Reviews = new ArrayList<>();
+    }
 
+    public Lodge(String name, String type, String address, String city, int zipCode, String description, HashMap<String,String> Accommodations){
+        this(name, type, address, city, zipCode, description);
         this.Accommodations = Accommodations;
-
+    }
+    public Lodge(String name, String type, String address, String city, int zipCode, String description, HashMap<String,String> Accommodations, ArrayList<String> Reviews){
+        this(name, type, address, city, zipCode, description, Accommodations);
         this.Reviews = Reviews;
+    }
+
+    public Lodge(String name, String type, String address, String city, int zipCode, String description, User user, HashMap<String,String> Accommodations, ArrayList<String> Reviews){
+        this(name, type, address, city, zipCode, description, Accommodations, Reviews);
+        this.owner = user;
     }
 
     // setters & getters of every field
@@ -92,4 +108,5 @@ public class Lodge {
     public void setReviews(String reviews) {
         Reviews.add(reviews);
     }
+    
 }
