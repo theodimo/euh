@@ -3,6 +3,8 @@ package gui.components;
 import javax.swing.*;
 import java.awt.*;
 
+import static gui.bootstrap.Fonts.*;
+
 /**This is a simple button class which extends JButton
  *
  * @author tzikaman
@@ -13,7 +15,7 @@ public class Button extends JButton {
         this.setText(text);
 
         //styling
-        this.setFont(new Font("Rapor", Font.BOLD,height*2/5));
+        this.setFont(buttonFont);
         this.setBackground(backgroundColor);
         this.setForeground(foregroundColor);
         this.setPreferredSize(new Dimension(width, height));

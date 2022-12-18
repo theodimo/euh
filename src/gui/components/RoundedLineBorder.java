@@ -35,7 +35,7 @@ public class RoundedLineBorder extends AbstractBorder implements Border {
 
     @Override
     public Insets getBorderInsets(Component c, Insets insets) {
-        return new Insets(0,10,0,10);
+        return new Insets(10,10,10,10);
     }
 
     @Override
