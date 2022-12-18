@@ -37,6 +37,7 @@ public abstract class SignTemplate extends JFrame {
 
 
     public SignTemplate(String title){
+        /*
         //initialization
         this.setSize(this.width, this.height);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -69,7 +70,9 @@ public abstract class SignTemplate extends JFrame {
         //other functionality
         //this.container.center(this);
         //this.titleLabel.centerX(this, (this.container.getY() - this.getContentPane().getY() - this.titleLabel.getHeight()) / 2);
+        */
     }
+
 
 
 

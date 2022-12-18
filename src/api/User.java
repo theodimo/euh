@@ -1,7 +1,5 @@
 package api;
 
-import gui.screens.SearchScreen;
-
 import java.util.ArrayList;
 
 public class User implements java.io.Serializable {
@@ -10,7 +8,6 @@ public class User implements java.io.Serializable {
     private String username;
     private String password;
     private String type;
-    private ArrayList<Lodge> searchingHistory;
 
     public User(String name, String surname, String username, String password, String type) {
         this.name = name;
@@ -19,7 +16,6 @@ public class User implements java.io.Serializable {
         this.password = password;
         this.type = type;
 
-        this.searchingHistory = new ArrayList<>();
     }
 
     //Getters
@@ -39,16 +35,6 @@ public class User implements java.io.Serializable {
     }
     public String getType() {
         return this.type;
-    }
-    public void addRecentlyWatchedLodge(Lodge lodge){
-        this.searchingHistory.add(lodge);
-    }
-    public void removeRecentlyWatchedLodge(Lodge lodge){
-        this.searchingHistory.remove(lodge);
-    }
-
-    public ArrayList<Lodge> getSearchingHistory(){
-        return this.searchingHistory;
     }
 
     public void printUserData() {

@@ -8,12 +8,10 @@ import java.util.Objects;
 //a class that holds the data of our app while its running
 public class Database {
     private ArrayList<User> users;
-    private ArrayList<Lodge> lodges;
 
     public Database() {
         //initialization of the objects
         this.users = new ArrayList<>();
-        this.lodges = new ArrayList<>();
 
         //fetch users
         try {
@@ -24,14 +22,6 @@ public class Database {
             System.out.println(e);
         }
 
-        //fetch lodges
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/database/Lodges.dat"));
-            this.lodges = (ArrayList<Lodge>) in.readObject();
-            in.close();
-        } catch(Exception e) {
-            System.out.println(e);
-        }
     }
 
     //getters
@@ -42,15 +32,6 @@ public class Database {
      */
     public User getUser(int index) {
         return this.users.get(index);
-    }
-
-    /**
-     * Returns the lodge at the position: index
-     * @param index the position of the lodge in the database
-     * @return the lodge
-     */
-    public Lodge getLodge(int index) {
-        return this.lodges.get(index);
     }
 
      /**
@@ -127,17 +108,5 @@ public class Database {
         }
     }
 
-    public void createLodge(String name, String type, String address, String city, int zipCode, String description, HashMap<String,String[]> Accommodations) {
-        Lodge newLodge = new Lodge(name, type, address, city, zipCode, description, Accommodations);
-        this.lodges.add(newLodge);
-
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src/database/Lodges.dat"));
-            out.writeObject(this.lodges);
-            out.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
 }
 

@@ -58,7 +58,7 @@ public class LogInScreen extends SignTemplate {
             System.out.println(usernameField.getText());
             System.out.println(String.valueOf(passwordField.getPassword()));
 
-            new SearchScreen(user);
+            
             dispose();
         });
         this.buttonsPanel.add(logInButton);
