@@ -3,7 +3,6 @@ package gui.components;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Dimension;
 
 public class Label extends JLabel {
 
@@ -33,15 +32,5 @@ public class Label extends JLabel {
         this.setForeground(foreground);
         this.setFont(font);
         this.setOpaque(true);
-    }
-
-     /**
-     * Horizontally centers the Label inside the given frame
-     * @param frame: the frame in which the label will be centered horizontally
-     * @param y: the point at the y-axis where the label will be placed
-     */
-    //centers the label at the x-axis and sets the y coordinate to the given coordinate
-    public void centerX(JFrame frame, int y) {
-        this.setLocation((frame.getContentPane().getWidth() - this.getWidth()) / 2, y);
     }
 }
