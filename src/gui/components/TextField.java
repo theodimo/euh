@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Objects;
+import static gui.bootstrap.Fonts.*;
 
 /**
  * This is a custom class that extends JTextField and
@@ -15,12 +16,12 @@ import java.util.Objects;
  */
 public class TextField extends JTextField implements FocusListener{
 
-    private final Color idleBorderColor;
-    private final Color focusBorderColor;
-    private final  Color backgroundColor;
-    private final Color foregroundColor;
-    private final Color defaultMessageColor;
-    private final String defaultMessage;
+    private final Color idleBorderColor; //the color of the border when it is NOT interacted
+    private final Color focusBorderColor; //the color of the border when it is interacted
+    private final  Color backgroundColor; //the color of the field
+    private final Color foregroundColor; //the color of the text in the field
+    private final Color defaultMessageColor; //the color of the default text in the field
+    private final String defaultMessage; //the text
 
     public TextField(int width, int height,
                      Color backgroundColor, Color foregroundColor,
@@ -41,7 +42,7 @@ public class TextField extends JTextField implements FocusListener{
         this.setText(defaultMessage);
         this.setCaretColor(focusBorderColor);
 
-        this.setFont(new Font("Rapor",Font.PLAIN,height*2/5));
+        this.setFont(mainFont);
         this.setPreferredSize(new Dimension(width, height));
         this.addFocusListener(this);
     }

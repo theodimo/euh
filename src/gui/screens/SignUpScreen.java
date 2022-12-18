@@ -1,12 +1,16 @@
 package gui.screens;
 
 import api.Database;
+import api.User;
 import gui.components.Button;
 import gui.components.PasswordField;
 import gui.components.TextField;
 
+import javax.swing.*;
+import java.awt.*;
+
 import static gui.bootstrap.Colors.*;
-import static gui.bootstrap.Colors.secondaryColor;
+import static gui.bootstrap.Fonts.*;
 
 /**This is the screen in which a new user can sign up
  * in the application. The data of the user are used
@@ -21,47 +25,80 @@ import static gui.bootstrap.Colors.secondaryColor;
 
 public class SignUpScreen extends SignTemplate{
 
-    TextField nameField = new TextField(250,50,primaryColor,secondaryColor,accentColor,secondaryColor,"name");
-    TextField surnameField = new TextField(250,50,primaryColor,secondaryColor,accentColor,secondaryColor,"surname");
-    TextField usernameField = new TextField(250,50,primaryColor,secondaryColor,accentColor,secondaryColor,"username");
-    PasswordField passwordField = new PasswordField(250,50,primaryColor,secondaryColor,accentColor,secondaryColor,"password");
-    PasswordField validatePasswordField = new PasswordField(250,50,primaryColor,secondaryColor,accentColor,secondaryColor,"validate password");
-
-    Button signUpButton = new Button("Sign Up",100,50,accentColor,secondaryColor);
-    Button backButton = new Button("Back",100,50,accentColor,secondaryColor);
+    TextField nameField;
+    TextField surnameField;
+    TextField usernameField;
+    PasswordField passwordField;
+    PasswordField validatePasswordField;
+    JComboBox<String> userType;
+    Button signUpButton;
+    Button backButton;
 
     Database api = new Database();
-        public SignUpScreen(String title) {
-        super(title,5);
+        public SignUpScreen() {
+            super("Sign Up",5);
 
-        this.fieldsPanel.add(nameField);
-        this.fieldsPanel.add(surnameField);
-        this.fieldsPanel.add(usernameField);
-        this.fieldsPanel.add(passwordField);
-        this.fieldsPanel.add(validatePasswordField);
+            nameField = new TextField(fieldsWidth/2,fieldsHeight,primaryColor,secondaryColor,accentColor,secondaryColor,"name");
+            surnameField = new TextField(fieldsWidth/2,fieldsHeight,primaryColor,secondaryColor,accentColor,secondaryColor,"surname");
+            usernameField = new TextField(fieldsWidth,fieldsHeight,primaryColor,secondaryColor,accentColor,secondaryColor,"username");
+            passwordField = new PasswordField(fieldsWidth,fieldsHeight,primaryColor,secondaryColor,accentColor,secondaryColor,"password");
+            validatePasswordField = new PasswordField(fieldsWidth,fieldsHeight,primaryColor,secondaryColor,accentColor,secondaryColor,"validate password");
 
-        backButton.addActionListener(e -> {
-            dispose();
-            new LogInScreen("Log In Screen");
-        });
-        this.buttonsPanel.add(backButton);
-
-        signUpButton.addActionListener(e -> {
-            String name = nameField.getText();
-            String surname = surnameField.getText();
-            String username = usernameField.getText();
-            String password = String.valueOf(passwordField.getPassword());
-            String validatePassword = String.valueOf(validatePasswordField.getPassword());
-
-            if(api.validateSignUpCredentials(username,password,validatePassword)){
-                api.createUser(name,surname,username,password,"user");
-                System.out.println("hello");
-            }
+            String[] choices = {"simple", "provider"};
+            userType = new JComboBox<>(choices);
+            userType.setPreferredSize(new Dimension(fieldsWidth,fieldsHeight));
+            userType.setBackground(primaryColor);
+            userType.setFont(mainFont);
+            userType.setSelectedIndex(0);
 
 
-        });
-        this.buttonsPanel.add(signUpButton);
+            signUpButton = new Button("Sign Up",buttonsWidth,buttonsHeight,characterColor,secondaryColor);
+            backButton = new Button("Back",buttonsWidth,buttonsHeight,characterColor,secondaryColor);
 
-        this.setVisible(true);
-    }
+            //add components
+            this.fieldsPanel.add(nameField);
+            this.fieldsPanel.add(surnameField);
+            this.fieldsPanel.add(usernameField);
+            this.fieldsPanel.add(passwordField);
+            this.fieldsPanel.add(validatePasswordField);
+
+            this.fieldsPanel.add(userType);
+
+
+            //add buttons in the screen and action listeners to the buttons
+
+            backButton.addActionListener(e -> {
+                //goes back to Log In Screen
+                new LogInScreen();
+                dispose();
+            });
+            this.buttonsPanel.add(backButton);
+
+            signUpButton.addActionListener(e -> {
+                //getting the information from the fields and combobox
+                String name = nameField.getText();
+                String surname = surnameField.getText();
+                String username = usernameField.getText();
+                String password = String.valueOf(passwordField.getPassword());
+                String validatePassword = String.valueOf(validatePasswordField.getPassword());
+                String selectedUserType = (String) userType.getSelectedItem();
+
+                //checks weather the credentials are valid and proceeds to the Search Screen
+                if(api.validateSignUpCredentials(username,password,validatePassword)){
+                    api.createUser(name,surname,username,password,selectedUserType);
+
+                    User user = api.getUser(api.validateSignInCredentials(username,password));
+                    new SearchScreen(user);
+                    dispose();
+                }
+
+
+            });
+            this.buttonsPanel.add(signUpButton);
+
+            this.getRootPane().setDefaultButton(signUpButton); //this will automatically listen to the "Enter" key
+                                                               //and trigger the action listener of the given button
+
+            this.setVisible(true);
+        }
 }
