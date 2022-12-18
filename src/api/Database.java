@@ -1,19 +1,20 @@
 package api;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 //a class that holds the data of our app while its running
 public class Database {
     private ArrayList<User> users;
+    private ArrayList<Lodge> lodges;
 
     public Database() {
         //initialization of the objects
         this.users = new ArrayList<>();
+        this.lodges = new ArrayList<>();
+
         //fetch users
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/database/Users.dat"));
@@ -22,8 +23,35 @@ public class Database {
         } catch(Exception e) {
             System.out.println(e);
         }
+
+        //fetch lodges
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/database/Lodges.dat"));
+            this.lodges = (ArrayList<Lodge>) in.readObject();
+            in.close();
+        } catch(Exception e) {
+            System.out.println(e);
+        }
     }
 
+    //getters
+    /**
+     * Returns the user at the position: index
+     * @param index the position of the user in the database
+     * @return the user
+     */
+    public User getUser(int index) {
+        return this.users.get(index);
+    }
+
+    /**
+     * Returns the lodge at the position: index
+     * @param index the position of the lodge in the database
+     * @return the lodge
+     */
+    public Lodge getLodge(int index) {
+        return this.lodges.get(index);
+    }
 
      /**
      * Checks if a user with the given username exists in the database
@@ -85,14 +113,6 @@ public class Database {
         return successfullValidation;
     }
 
-    /**
-     * Returns the user in the position: index
-     * @param index the position of the user in the database
-     * @return the user
-     */
-    public User getUser(int index) {
-        return this.users.get(index);
-    }
 
     public void createUser(String name, String surname, String username, String password, String type) {
         User newUser = new User(name, surname, username, password, type);
@@ -101,6 +121,19 @@ public class Database {
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src/database/Users.dat"));
             out.writeObject(this.users);
+            out.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void createLodge(String name, String type, String address, String city, int zipCode, String description, HashMap<String,String[]> Accommodations) {
+        Lodge newLodge = new Lodge(name, type, address, city, zipCode, description, Accommodations);
+        this.lodges.add(newLodge);
+
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("src/database/Lodges.dat"));
+            out.writeObject(this.lodges);
             out.close();
         } catch (Exception e) {
             System.out.println(e);

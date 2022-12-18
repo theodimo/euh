@@ -3,7 +3,7 @@ package api;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Lodge {
+public class Lodge implements java.io.Serializable {
     // fields of Lodge class
     private String name;
     private String type;
@@ -13,7 +13,7 @@ public class Lodge {
     private String description;
 
     private User owner;
-    private HashMap<String,String> Accommodations;
+    private HashMap<String, String[]> Accommodations;
     private ArrayList<String> Reviews;
 
     // constructors of Lodge
@@ -30,16 +30,16 @@ public class Lodge {
         this.Reviews = new ArrayList<>();
     }
 
-    public Lodge(String name, String type, String address, String city, int zipCode, String description, HashMap<String,String> Accommodations){
+    public Lodge(String name, String type, String address, String city, int zipCode, String description, HashMap<String,String[]> Accommodations){
         this(name, type, address, city, zipCode, description);
         this.Accommodations = Accommodations;
     }
-    public Lodge(String name, String type, String address, String city, int zipCode, String description, HashMap<String,String> Accommodations, ArrayList<String> Reviews){
+    public Lodge(String name, String type, String address, String city, int zipCode, String description, HashMap<String,String[]> Accommodations, ArrayList<String> Reviews){
         this(name, type, address, city, zipCode, description, Accommodations);
         this.Reviews = Reviews;
     }
 
-    public Lodge(String name, String type, String address, String city, int zipCode, String description, User user, HashMap<String,String> Accommodations, ArrayList<String> Reviews){
+    public Lodge(String name, String type, String address, String city, int zipCode, String description, User user, HashMap<String,String[]> Accommodations, ArrayList<String> Reviews){
         this(name, type, address, city, zipCode, description, Accommodations, Reviews);
         this.owner = user;
     }
@@ -93,11 +93,11 @@ public class Lodge {
         this.description = description;
     }
 
-    public HashMap<String, String> getAccommodations() {
+    public HashMap<String, String[]> getAccommodations() {
         return Accommodations;
     }
 
-    public void setAccommodations(String accommodation,String accommodations) {
+    public void setAccommodations(String accommodation,String[] accommodations) {
         Accommodations.put(accommodation,accommodations);
     }
 
@@ -108,5 +108,5 @@ public class Lodge {
     public void setReviews(String reviews) {
         Reviews.add(reviews);
     }
-    
+
 }

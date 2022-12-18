@@ -2,6 +2,7 @@ package gui.components;
 
 import javax.swing.*;
 
+import api.Database;
 import gui.bootstrap.Colors;
 import gui.components.TextField;
 
@@ -41,6 +42,7 @@ public class LodgeProducer extends JFrame implements ActionListener {
 
     private HashMap<String, String[]> accommodations; //this object will connect our accommodation titles with the accommodation themselves
 
+    private Database db;
     //components
     Panel fieldsPanel; //the container of all input fields
     Panel buttonsPanel; //the container of the buttons
@@ -76,6 +78,7 @@ public class LodgeProducer extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setFocusable(true);
         this.accommodations = new HashMap<>();
+        this.db = new Database();
 
 
         //components initialization
@@ -175,6 +178,47 @@ public class LodgeProducer extends JFrame implements ActionListener {
                 this.addAccommodation(accommodation);
                 this.removeAccommodationValue(accommodationName);
             }
+        });
+
+        this.createButton.addActionListener(e -> {
+            //user clicks the button in the bottom right corner of the dialog. We want to take the values that user has fill in the fields
+            //and create a new lodge with these values, if they are adequate
+            HashMap<String, String[]> selectedAccommodations = new HashMap<>(); //the final object that will be used to
+            //create a new lodge. Each key is a string that represents a accommodation category (or title). Each value is
+            //a array of strings that represent the accommodations that belong to these categories
+
+            //build the object. I will iterate through all Accommodations in selectedAccommodationsPanel, and add their name to
+            //the object. If category doesn't exist, then create it.
+            String[] accommodationNames = {};
+            for (Component component: this.selectedAccommodationsPanel.getComponents()) {
+                Accommodation accommodation = (Accommodation) component;
+                String name = accommodation.name; //the name of the accommodation
+                int titleIndex = accommodation.titleIndex;
+                String title = this.accommodationTitles[titleIndex]; //the title of the category that the accommodation belongs to
+
+                if (selectedAccommodations.containsKey(title)) {
+                    //the category already exists at the HashMap, so just add the name to the current values
+                    accommodationNames = selectedAccommodations.get(title);
+                    accommodationNames = this.addItemToArray(accommodationNames, name);
+                } else {
+                    //the category does not exist. Create it and add the name inside it
+                    accommodationNames = new String[]{name};
+                }
+                selectedAccommodations.put(title, accommodationNames);
+            }
+
+            //get the rest of the essential properties for lodge creation
+            String name = this.titleField.getText();
+            String type = this.typeBox.getSelectedItem().toString();
+            String address = this.addressField.getText();
+            String city = this.cityField.getText();
+            int zipcode = Integer.parseInt(this.zipCodeField.getText());
+            String description = this.descriptionField.getText();
+
+
+            this.db.createLodge(name, type, address, city, zipcode, description, selectedAccommodations);
+
+
         });
 
     }
